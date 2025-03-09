@@ -1,0 +1,779 @@
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    background: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Portal Login */
+.portal-login {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(0, 255, 204, 0.03) 0%, rgba(0, 119, 255, 0.03) 100%);
+    padding: 20px;
+}
+
+.portal-login h2 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 40px;
+    background: linear-gradient(45deg, #00ffcc, #0077ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-form input {
+    padding: 15px;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #ffffff;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 100%;
+}
+
+.login-form input:focus {
+    border-color: #00ffcc;
+}
+
+.login-form button {
+    width: 100%;
+}
+
+.back-link {
+    margin-top: 20px;
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #00ffcc;
+}
+
+/* Client Portal Layout */
+.client-portal {
+    min-height: 100vh;
+    display: flex;
+    background: #000000;
+    flex-direction: row;
+}
+
+/* Left Navbar */
+.portal-nav {
+    width: 250px;
+    background: rgba(10, 10, 10, 0.95);
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.5);
+    transition: width 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+.portal-nav.collapsed {
+    width: 70px;
+}
+
+.nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.nav-header h1 {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 700;
+    background: linear-gradient(90deg, #00ffcc, #0077ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.portal-nav.collapsed .nav-header h1 {
+    display: none;
+}
+
+.nav-toggle {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-toggle:hover {
+    color: #00ffcc;
+}
+
+.portal-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.portal-nav li {
+    margin-bottom: 15px;
+}
+
+.portal-nav .nav-link {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    font-weight: 500;
+    color: #e0e0e0;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.portal-nav .nav-link:hover,
+.portal-nav .nav-link.active {
+    background: linear-gradient(90deg, rgba(0, 255, 204, 0.2), rgba(0, 119, 255, 0.2));
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+.portal-nav.collapsed .nav-link {
+    justify-content: center;
+    padding: 12px;
+}
+
+.portal-nav.collapsed .nav-link span {
+    display: none;
+}
+
+.nav-icon {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+.portal-nav .logout {
+    color: #ff5555;
+    /* Just color change, no positioning */
+}
+
+/* Main Content */
+.portal-content {
+    margin-left: 250px;
+    flex: 1;
+    padding: clamp(20px, 5vw, 40px);
+    display: flex;
+    gap: clamp(20px, 5vw, 40px);
+    background: linear-gradient(135deg, rgba(0, 255, 204, 0.03) 0%, rgba(0, 119, 255, 0.03) 100%);
+    transition: margin-left 0.3s ease;
+}
+
+.portal-content.collapsed {
+    margin-left: 70px;
+}
+
+/* Left Panel */
+.left-panel {
+    width: 300px;
+    background: rgba(20, 20, 20, 0.9);
+    padding: clamp(20px, 4vw, 30px);
+    border-radius: 15px;
+    height: fit-content;
+    flex-shrink: 0;
+}
+
+.left-panel h2 {
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #00ffcc, #0077ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.quick-info {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(15px, 3vw, 25px);
+}
+
+.info-item h3 {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.info-item p {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #a0a0a0;
+    margin-bottom: 10px;
+}
+
+.info-item .progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Right Panel */
+.right-panel {
+    flex: 1;
+    background: rgba(20, 20, 20, 0.9);
+    padding: clamp(20px, 4vw, 30px);
+    border-radius: 15px;
+    width: 100%;
+}
+
+.tab-content h2 {
+    font-size: clamp(1.6rem, 4vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #00ffcc, #0077ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.tab-content p {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: #b0b0b0;
+    margin-bottom: clamp(20px, 4vw, 30px);
+}
+
+/* Dashboard */
+.progress-tracker {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(15px, 3vw, 25px);
+}
+
+.progress-item h3 {
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.progress-item p {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #a0a0a0;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    height: clamp(6px, 1.5vw, 10px);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: width 0.5s ease;
+}
+
+/* Project Details */
+.project-details p,
+.project-details ul {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #a0a0a0;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.project-details ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+/* Invoices */
+.invoice-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(15px, 3vw, 20px);
+}
+
+.invoice-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.invoice-item p {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #a0a0a0;
+}
+
+/* Chat */
+.chat-messages {
+    max-height: clamp(200px, 50vh, 400px);
+    overflow-y: auto;
+    margin-bottom: clamp(15px, 3vw, 20px);
+    padding-right: 10px;
+}
+
+.chat-message {
+    margin-bottom: 15px;
+    padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 15px);
+    border-radius: 10px;
+}
+
+.chat-message.nettech {
+    background: rgba(0, 119, 255, 0.2);
+    text-align: left;
+}
+
+.chat-message.client {
+    background: rgba(0, 255, 204, 0.2);
+    text-align: right;
+}
+
+.chat-message p {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    margin: 0;
+    color: #ffffff;
+}
+
+.chat-message span {
+    font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+    color: #a0a0a0;
+}
+
+.chat-form {
+    display: flex;
+    gap: clamp(8px, 2vw, 10px);
+    flex-direction: row;
+}
+
+.chat-form input {
+    flex: 1;
+    padding: clamp(10px, 2.5vw, 12px);
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #ffffff;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.chat-form input:focus {
+    border-color: #00ffcc;
+}
+
+/* Files */
+.file-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 2.5vw, 15px);
+    margin-bottom: clamp(20px, 4vw, 30px);
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.file-item p {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #a0a0a0;
+}
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 2vw, 10px);
+}
+
+.file-input {
+    padding: clamp(8px, 2vw, 10px);
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+/* Tickets */
+.ticket-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(15px, 3vw, 20px);
+    margin-bottom: clamp(20px, 4vw, 30px);
+}
+
+.ticket-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ticket-item p {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #a0a0a0;
+}
+
+/* Resources */
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 2.5vw, 15px);
+}
+
+.resource-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.resource-item p {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #a0a0a0;
+}
+
+/* Shared CTA Button */
+.cta-button {
+    padding: clamp(10px, 2.5vw, 12px) clamp(20px, 5vw, 30px);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 500;
+    border: none;
+    background: linear-gradient(90deg, #00ffcc, #0077ff);
+    color: #000000;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta-button.small {
+    padding: clamp(6px, 1.5vw, 8px) clamp(15px, 3.5vw, 20px);
+    font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.4s ease;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 204, 0.4);
+}
+
+.cta-button:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .portal-nav {
+        width: 200px;
+    }
+
+    .portal-nav.collapsed {
+        width: 60px;
+    }
+
+    .portal-content {
+        margin-left: 200px;
+    }
+
+    .portal-content.collapsed {
+        margin-left: 60px;
+    }
+
+    .left-panel {
+        width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .client-portal {
+        flex-direction: column;
+    }
+
+    .portal-nav {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        z-index: 1000;
+        padding: 15px;
+        box-shadow: none;
+        background: rgba(10, 10, 10, 0.98);
+    }
+
+    .portal-nav.collapsed {
+        transform: translateX(0);
+        width: 60px;
+        height: 100vh;
+    }
+
+    .portal-nav:not(.collapsed) {
+        transform: translateX(0);
+        width: 100%;
+        height: auto;
+    }
+
+    .nav-header {
+        margin-bottom: 20px;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .portal-nav ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .portal-nav li {
+        margin-bottom: 10px;
+    }
+
+    .portal-nav .nav-link {
+        padding: 10px;
+    }
+
+    .portal-nav.collapsed .nav-link {
+        padding: 10px;
+    }
+
+    /* Logout button flows naturally in the list, no special mobile adjustment */
+    .portal-content {
+        margin-left: 0;
+        padding: 20px;
+        flex-direction: column;
+        margin-top: 60px;
+    }
+
+    .portal-content.collapsed {
+        margin-left: 60px;
+    }
+
+    .left-panel {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .right-panel {
+        width: 100%;
+    }
+
+    .chat-form {
+        flex-direction: column;
+    }
+
+    .chat-form input {
+        width: 100%;
+    }
+
+    .chat-form button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .portal-nav {
+        padding: 10px;
+    }
+
+    .portal-nav.collapsed {
+        width: 50px;
+    }
+
+    .portal-content {
+        padding: 15px;
+    }
+
+    .portal-content.collapsed {
+        margin-left: 50px;
+    }
+
+    .left-panel,
+    .right-panel {
+        padding: 15px;
+    }
+
+    .quick-info,
+    .progress-tracker,
+    .invoice-list,
+    .file-list,
+    .ticket-list,
+    .resource-list {
+        gap: 10px;
+    }
+
+    .chat-messages {
+        max-height: 300px;
+    }
+}
+
+.invoice-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.chat-form,
+.file-upload {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.file-input {
+    padding: clamp(8px, 2vw, 10px);
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+.auth-container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.signup-section,
+.login-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.signup-section h3,
+.login-section h3 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #00ffcc, #0077ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.error {
+    color: #ff5555;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(20px, 5vw, 30px);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: rgba(20, 20, 20, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 255, 204, 0.2);
+}
+
+.service-card h3 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    color: #ffffff;
+}
+
+.service-card p {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #a0a0a0;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .client-portal {
+        flex-direction: column;
+    }
+
+    .portal-nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        transform: translateX(-100%);
+    }
+
+    .portal-nav.collapsed {
+        transform: translateX(0);
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .portal-content {
+        margin-left: 0;
+        flex-direction: column;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+    }
+
+    .auth-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .portal-login h2 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .login-form input {
+        padding: 10px;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+    }
+}
