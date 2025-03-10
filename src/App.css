@@ -43,6 +43,7 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  font-family: 'Dune Rise';
 }
 
 .nav-toggle {
